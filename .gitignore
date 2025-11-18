@@ -1,0 +1,6 @@
+/storage/cache/*
+/vendor
+
+.env
+.env.*
+!.env.example
