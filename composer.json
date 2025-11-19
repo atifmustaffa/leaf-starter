@@ -10,13 +10,14 @@
   ],
   "require": {
     "php": "^8.2",
-    "leafs/leaf": "v4.0",
-    "leafs/db": "^4.0",
     "leafs/auth": "^4.2",
-    "leafs/session": "^4.0",
-    "leafs/form": "^3.2",
-    "leafs/csrf": "^0.5.4",
     "leafs/blade": "v4",
+    "leafs/csrf": "^0.5.4",
+    "leafs/db": "^4.0",
+    "leafs/form": "^3.2",
+    "leafs/leaf": "v4.0",
+    "leafs/session": "^4.0",
+    "ramsey/uuid": "^4.9",
     "vlucas/phpdotenv": "^5.6"
   },
   "autoload": {
