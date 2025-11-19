@@ -2,7 +2,7 @@
 
 auth()->dbConnection(mydb()->getConnection());
 auth()->config([
-  'db.table' => 'admins',
+  // 'db.table' => 'admins', // Default: users
   'session' => true,
   'session.cookie' => [
     'secure' => true,
