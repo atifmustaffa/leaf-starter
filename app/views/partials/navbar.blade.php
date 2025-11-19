@@ -29,7 +29,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ isActive('/home', $current['path']) }}" aria-current="page" href="{{ route('home') }}">Home</a>
+                    <a class="nav-link {{ isActive('/dashboard', $current['path']) }}"
+                      aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>

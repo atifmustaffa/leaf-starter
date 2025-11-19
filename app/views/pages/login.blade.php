@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <div class="col-4">
-            <form method="post" action="{{ route('auth.login') }}">
+            <form method="post">
                 @csrf
 
                 <div class="mb-3">

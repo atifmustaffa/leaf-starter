@@ -2,21 +2,21 @@
 
 app()->get('/', [
   function () {
-    response()->redirect('/home');
+    response()->redirect(['dashboard']);
   }
 ]);
 
-app()->get('/login', [
-  'middleware' => 'guest.required',
-  'name' => 'login',
+app()->get('/auth/login', [
+  'middleware' => 'auth.guest',
+  'name'       => 'auth.login',
   function () {
     response()->render('pages.login');
   }
 ]);
 
 app()->post('/auth/login', [
-  'middleware' => 'guest.required',
-  'name' => 'auth.login',
+  'middleware' => 'auth.guest',
+  'name'       => 'auth.login',
   function () {
     $data = request()->postData();
     $success = auth()->login([
@@ -25,27 +25,30 @@ app()->post('/auth/login', [
     ]);
 
     if ($success) {
-      response()->redirect('/home');
+      response()->redirect(['dashboard']);
     }
-    response()->withFlash('danger', 'Invalid username or password')->redirect('/login');
+    response()->withFlash('danger', 'Invalid username or password')->redirect(['login']);
   }
 ]);
 
 app()->group('/', [
   'middleware' => 'auth.required',
   function () {
-    app()->get('/home', [
-      'name' => 'home',
+    app()->get('/dashboard', [
+      'name' => 'dashboard',
       function () {
-        response()->render('pages.home');
+        response()->render('pages.dashboard');
       }
     ]);
 
-    app()->get('/logout', [
-      'name' => 'logout',
+    app()->get('/auth/logout', [
+      'name' => 'auth.logout',
       function () {
-        auth()->logout();
-        response()->redirect('/login');
+        if (auth()->logout()) {
+          response()->redirect(['auth.login']);
+        } else {
+          response()->withFlash('danger', 'Failed to logout')->redirect(['dashboard']);
+        }
       }
     ]);
   }
