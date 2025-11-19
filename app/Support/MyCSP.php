@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-class MyCSP
+class MyCsp
 {
   private array $rules = [];
   private bool $reportOnly = false;

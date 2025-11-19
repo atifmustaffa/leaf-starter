@@ -1,6 +1,6 @@
 <?php
 
-use App\Support\MyCSP;
+use App\Support\MyCsp;
 
 app()->register('nonce', function ($c) {
   return base64_encode(random_bytes(16));
@@ -14,7 +14,7 @@ app()->use(function () {
 
   $nonce = app()->nonce;
 
-  $csp = new MyCSP();
+  $csp = new MyCsp();
   $csp
     ->add('default-src', ["'self'"])
 
