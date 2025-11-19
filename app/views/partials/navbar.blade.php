@@ -1,21 +1,23 @@
 @php
-    $current = app()->getRoute();
+    ['path' => $current ] = app()->getRoute();
 
-    /**
-     * Check if current route matches a pattern.
-     */
-    function isActive(string|array $pattern, string $currentRoute): string
-    {
-        if (is_array($pattern)) {
-            foreach ($pattern as $p) {
-                if (fnmatch($p, $currentRoute)) {
-                    return 'active';
+    if (!function_exists('isActive')) {
+        /**
+        * Check if current route matches a pattern.
+        */
+        function isActive(string|array $pattern, string $currentRoute): string
+        {
+            if (is_array($pattern)) {
+                foreach ($pattern as $p) {
+                    if (fnmatch($p, $currentRoute)) {
+                        return 'active';
+                    }
                 }
+                return '';
             }
-            return '';
-        }
 
-        return fnmatch($pattern, $currentRoute) ? 'active' : '';
+            return fnmatch($pattern, $currentRoute) ? 'active' : '';
+        }
     }
 @endphp
 
@@ -29,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ isActive('/dashboard', $current['path']) }}"
+                    <a class="nav-link {{ isActive('/dashboard', $current) }}"
                       aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
