@@ -3,8 +3,8 @@
 @section('title', 'Login')
 
 {{-- Page specific styles --}}
-@section('styles')
-@endsection
+@push('additional-styles')
+@endpush
 
 @section('content')
     <div class="row">
@@ -27,5 +27,5 @@
 @endsection
 
 {{-- Page specific scripts --}}
-@section('scripts')
-@endsection
+@push('additional-scripts')
+@endpush

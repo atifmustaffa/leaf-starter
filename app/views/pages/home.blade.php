@@ -3,8 +3,8 @@
 @section('title', 'Home')
 
 {{-- Page specific styles --}}
-@section('styles')
-@endsection
+@push('additional-styles')
+@endpush
 
 @section('content')
     <h1>Welcome to Home!</h1>
@@ -14,5 +14,5 @@
 @endsection
 
 {{-- Page specific scripts --}}
-@section('scripts')
-@endsection
+@push('additional-scripts')
+@endpush
