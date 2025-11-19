@@ -1,4 +1,40 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteEngine On
+
+# Block AI bots - mark as blocked with 404
+RewriteCond %{HTTP_USER_AGENT} (GPTBot|ChatGPT-User|CCBot|anthropic-ai|Claude-Web|Google-Extended|cohere-ai|Omgilibot|Bytespider|Diffbot|PerplexityBot|YouBot|Applebot-Extended|FacebookBot|Meta-ExternalAgent|img2dataset|Scrapy|curl|wget|python-requests|axios|node-fetch) [NC]
+RewriteRule .* index.php [E=BLOCKED:404,L]
+
+# Block common scraper patterns
+RewriteCond %{HTTP_USER_AGENT} (scraper|crawler|spider|bot|harvest|extract|grab|siphon) [NC]
+RewriteCond %{HTTP_USER_AGENT} !Googlebot [NC]
+RewriteCond %{HTTP_USER_AGENT} !bingbot [NC]
+RewriteRule .* index.php [E=BLOCKED:404,L]
+
+# Block requests with no user agent
+RewriteCond %{HTTP_USER_AGENT} ^$
+RewriteRule .* index.php [E=BLOCKED:404,L]
+
+# Allow public folder
+RewriteCond %{REQUEST_URI} /public/
+RewriteRule ^ - [L]
+
+# Block files by extension - use 403 for forbidden files
+RewriteCond %{REQUEST_URI} !^/[^/]+/index\.php$
+RewriteCond %{REQUEST_URI} !^/index\.php$
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} !public/
+RewriteRule ^(?!public/).+\.(env|md|json|lock|txt|yml|yaml|xml|ini|conf|log|sql|sh|bat)$ index.php [E=BLOCKED:403,L]
+
+# Block directory access - use 403
+RewriteRule ^(app|vendor|storage|config|database|tests?|node_modules|\.git)/ index.php [E=BLOCKED:403,L]
+
+# Block hidden files - use 403
+RewriteRule ^\..*$ index.php [E=BLOCKED:403,L]
+
+# Route to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule . index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+# Disable directory listing
+Options -Indexes
