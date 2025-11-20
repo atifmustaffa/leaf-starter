@@ -9,6 +9,8 @@
 @section('content')
     <div class="row">
         <div class="col-4">
+            @section('hide-layout-flash', true)
+            @include('partials.flash')
             <form method="post">
                 @csrf
 

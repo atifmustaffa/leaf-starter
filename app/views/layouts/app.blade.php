@@ -25,8 +25,10 @@
         @include('partials.navbar')
     @show
 
-    <div class="container flex-grow-1 overflow-auto">
-        @include('partials.flash')
+    <div class="container flex-grow-1 overflow-auto py-3">
+        @sectionMissing('hide-layout-flash')
+          @include('partials.flash')
+        @endif
 
         <div class="content">
             @yield('content')

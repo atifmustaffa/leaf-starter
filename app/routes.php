@@ -27,7 +27,7 @@ app()->post('/auth/login', [
     if ($success) {
       response()->redirect(['dashboard']);
     }
-    response()->withFlash('danger', 'Invalid username or password')->redirect(['login']);
+    response()->withFlash('danger', 'Invalid username or password')->redirect(['auth.login']);
   }
 ]);
 
