@@ -2,7 +2,7 @@
 
 app()->get('/', [
   function () {
-    response()->redirect(['dashboard']);
+    return response()->redirect(['dashboard']);
   }
 ]);
 
@@ -10,7 +10,7 @@ app()->get('/auth/login', [
   'middleware' => 'auth.guest',
   'name'       => 'auth.login',
   function () {
-    response()->render('pages.login');
+    return response()->render('pages.login');
   }
 ]);
 
@@ -25,9 +25,9 @@ app()->post('/auth/login', [
     ]);
 
     if ($success) {
-      response()->redirect(['dashboard']);
+      return response()->redirect(['dashboard']);
     }
-    response()->withFlash('danger', 'Invalid username or password')->redirect(['auth.login']);
+    return response()->withFlash('danger', 'Invalid username or password')->redirect(['auth.login']);
   }
 ]);
 
@@ -37,7 +37,7 @@ app()->group('/', [
     app()->get('/dashboard', [
       'name' => 'dashboard',
       function () {
-        response()->render('pages.dashboard');
+        return response()->render('pages.dashboard');
       }
     ]);
 
@@ -45,9 +45,9 @@ app()->group('/', [
       'name' => 'auth.logout',
       function () {
         if (auth()->logout()) {
-          response()->redirect(['auth.login']);
+          return response()->redirect(['auth.login']);
         } else {
-          response()->withFlash('danger', 'Failed to logout')->redirect(['dashboard']);
+          return response()->withFlash('danger', 'Failed to logout')->redirect(['dashboard']);
         }
       }
     ]);
