@@ -32,7 +32,7 @@ app()->post('/auth/login', [
 ]);
 
 app()->group('/', [
-  'middleware' => 'auth.required',
+  'middleware' => ['session.is-inactive', 'auth.required'],
   function () {
     app()->get('/dashboard', [
       'name' => 'dashboard',
